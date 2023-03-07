@@ -43,6 +43,10 @@ faltou_pra_mesa_a_vista = mesa - din_pra_mesa_a_vista
 
 #Resultado
 if faltou_pra_mesa < faltou_pra_mesa_a_vista:
+    desconto_necesario = (1-(faltou_pra_mesa/mesa))*100
     print("Vale mais a pena deixar investido e pagar sem o desconto do peugeot!")
 else:
+    desconto_necesario = ((faltou_pra_mesa_a_vista/mesa))*100
     print("Vale mais a pena pagar o peugeot a vista!")
+
+print("Para conseguir comprar a mesa, o desconto na marcenaria necessário é de {:.2f}%".format(round(desconto_necesario, 2)))
