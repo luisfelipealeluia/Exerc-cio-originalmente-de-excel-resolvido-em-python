@@ -1,0 +1,48 @@
+#Organização das datas para facilitar futuros cálculos:
+#O período entre 01/03/2023 e 31/03/2023 possúi 22 dias úteis
+#O período entre 1/03/2023 e 25/04/2023 possúi 37 dias úteis
+#O quantidade de dias úteis no ano adotada foi de 252
+dias_mar, dias_mar_e_abr = 22, 37
+dias_entre = dias_mar_e_abr - dias_mar
+dias_ano = 252
+# Valores
+bonus = 600000
+lca_1, lca_2 = 0.156, 0.145
+peugeot, mercedes, corolla, mesa = 89497, 580573, 110229, 65000
+desconto = 0.04
+peugeot_com_desconto = peugeot*(1-desconto)
+################################
+# Sem pagar á vista
+#################################
+#LCA relativo para 37 dias
+banco_1_37 = (bonus/2)*(1+lca_1)**(dias_mar_e_abr/dias_ano)-1
+banco_2_37 = (bonus/2)*(1+lca_2)**(dias_mar_e_abr/dias_ano)-1
+
+#LCA relativo para 22 dias
+banco_1_22 = (bonus/2)*(1+lca_1)**(dias_mar/dias_ano)-1
+banco_2_22 = (bonus/2)*(1+lca_2)**(dias_mar/dias_ano)-1
+
+dinheiro_restante = banco_2_22 - peugeot
+
+#Investindo o que sobrou depois do pagamento do peugeut
+din_final_b1 = dinheiro_restante*(1+lca_2)**(dias_entre/dias_ano)-1
+din_final_b2 = banco_1_37
+total_sem_desconto = din_final_b1 + din_final_b2
+din_pra_mesa = total_sem_desconto - (mercedes - corolla)
+faltou_pra_mesa = mesa - din_pra_mesa
+
+#####################
+#pagando á vista
+#####################
+montante = bonus - peugeot_com_desconto
+banco_1_37_a_vista = (montante/2)*(1+lca_1)**(dias_mar_e_abr/dias_ano)-1
+banco_2_37_a_vista = (montante/2)*(1+lca_2)**(dias_mar_e_abr/dias_ano)-1
+total_com_desconto = banco_1_37_a_vista + banco_2_37_a_vista
+din_pra_mesa_a_vista = total_com_desconto - (mercedes - corolla)
+faltou_pra_mesa_a_vista = mesa - din_pra_mesa_a_vista
+
+#Resultado
+if faltou_pra_mesa < faltou_pra_mesa_a_vista:
+    print("Vale mais a pena deixar investido e pagar sem o desconto do peugeot!")
+else:
+    print("Vale mais a pena pagar o peugeot a vista!")
