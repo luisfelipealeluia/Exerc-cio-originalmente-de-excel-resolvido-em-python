@@ -12,7 +12,7 @@ peugeot, mercedes, corolla, mesa = 89497, 580573, 110229, 65000
 desconto = 0.04
 peugeot_com_desconto = peugeot*(1-desconto)
 ################################
-# Sem pagar á vista
+#Primeiro caso: Sem pagar peugeot à vista
 #################################
 #LCA relativo para 37 dias
 banco_1_37 = (bonus/2)*(1+lca_1)**(dias_mar_e_abr/dias_ano)-1
@@ -27,21 +27,27 @@ dinheiro_restante = banco_2_22 - peugeot
 #Investindo o que sobrou depois do pagamento do peugeut
 din_final_b1 = dinheiro_restante*(1+lca_2)**(dias_entre/dias_ano)-1
 din_final_b2 = banco_1_37
+
+#Somando rendimentos e gerando os resultados do primeiro caso
 total_sem_desconto = din_final_b1 + din_final_b2
 din_pra_mesa = total_sem_desconto - (mercedes - corolla)
 faltou_pra_mesa = mesa - din_pra_mesa
 
 #####################
-#pagando á vista
+#Segundo Caso : Pagando peugeot à vista
 #####################
 montante = bonus - peugeot_com_desconto
+
+#LCA relativo no caso do pagamento do peugeot à vista
 banco_1_37_a_vista = (montante/2)*(1+lca_1)**(dias_mar_e_abr/dias_ano)-1
 banco_2_37_a_vista = (montante/2)*(1+lca_2)**(dias_mar_e_abr/dias_ano)-1
+
+#Somando rendimentos e gerando os resultados do segundo caso
 total_com_desconto = banco_1_37_a_vista + banco_2_37_a_vista
 din_pra_mesa_a_vista = total_com_desconto - (mercedes - corolla)
 faltou_pra_mesa_a_vista = mesa - din_pra_mesa_a_vista
 
-#Resultado
+#Resultado Final
 if faltou_pra_mesa < faltou_pra_mesa_a_vista:
     desconto_necesario = (1-(faltou_pra_mesa/mesa))*100
     print("Vale mais a pena deixar investido e pagar sem o desconto do peugeot!")
