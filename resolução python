@@ -11,16 +11,17 @@ lca_1, lca_2 = 0.156, 0.145
 peugeot, mercedes, corolla, mesa = 89497, 580573, 110229, 65000
 desconto = 0.04
 peugeot_com_desconto = peugeot*(1-desconto)
-################################
-#Primeiro caso: Sem pagar peugeot à vista
-#################################
-#LCA relativo para 37 dias
-banco_1_37 = (bonus/2)*(1+lca_1)**(dias_mar_e_abr/dias_ano)-1
-banco_2_37 = (bonus/2)*(1+lca_2)**(dias_mar_e_abr/dias_ano)-1
+#função para cálculo de juros compostos 
+# Define a função para calcular os valores que renderam em cada banco
+def calc_banco(bonus, lca, dias):
+    return (bonus/2)*(1+lca)**(dias/252)-1
 
-#LCA relativo para 22 dias
-banco_1_22 = (bonus/2)*(1+lca_1)**(dias_mar/dias_ano)-1
-banco_2_22 = (bonus/2)*(1+lca_2)**(dias_mar/dias_ano)-1
+#####################
+#Primeiro caso : não pagando o peugeot à vista
+#####################
+# Calcula os rendimentos
+banco_1_37 = calc_banco(bonus, lca_1, dias_mar_e_abr)
+banco_2_22 = calc_banco(bonus, lca_2, dias_mar)
 
 dinheiro_restante = banco_2_22 - peugeot
 
@@ -39,8 +40,9 @@ faltou_pra_mesa = mesa - din_pra_mesa
 montante = bonus - peugeot_com_desconto
 
 #LCA relativo no caso do pagamento do peugeot à vista
-banco_1_37_a_vista = (montante/2)*(1+lca_1)**(dias_mar_e_abr/dias_ano)-1
-banco_2_37_a_vista = (montante/2)*(1+lca_2)**(dias_mar_e_abr/dias_ano)-1
+banco_1_37_a_vista = calc_banco(montante, lca_1, dias_mar_e_abr)
+banco_2_37_a_vista = calc_banco(montante, lca_2, dias_mar_e_abr)
+
 
 #Somando rendimentos e gerando os resultados do segundo caso
 total_com_desconto = banco_1_37_a_vista + banco_2_37_a_vista
